@@ -20,6 +20,12 @@ def strip_vector_compat(resource_path)
     paths.each do |path|
       path.delete('vc_fillColor')
       path.delete('vc_pathData')
+      path.delete('vc_strokeColor')
+      path.delete('vc_strokeWidth')
+    end
+    animators = doc.search('objectAnimator')
+    animators.each do |animator|
+      animator.delete('vc_valueType')
     end
     File.write(rb_file, doc.to_xml)
     puts "Processed #{rb_file}"
